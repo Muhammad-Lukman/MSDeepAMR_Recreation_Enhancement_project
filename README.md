@@ -89,6 +89,9 @@ jupyter notebook
 
 ## **Notebooks Guide**
 
+<details>
+<summary>Click to expand Notebooks Guide</summary>
+  
 Execute notebooks in the following order:
 
 ### **Phase 1: Data Preparation**
@@ -121,6 +124,7 @@ Execute notebooks in the following order:
 17. `Part 8c K. pneumoniae SMOTE + Ensemble Strategy.ipynb` - Applied SMOTE + Ensemble for K. pneumoniae to tackle with Severe class imbalance (failed)
 18. `Part 8b K. pneumoniae specific Hyperparameter Optimization (wrong dropout of 0.45)` - Actually, **not Failed** but accidently used dropout 0.45 instead of 0.35 (seePart 8b) due to sleepy head 😅
 
+</details>
 ---
 
 ## **Repository Structure**
@@ -159,6 +163,9 @@ All models are hosted on **Zenodo** with DOI for citations.
 
 **Model Organization:**
 
+<details>
+<summary>Click to expand Model Organization</summary>
+  
 #### **E. coli Models**
 - `ecoli/1. baseline/final_model_ecoli_ceftriaxone.h5` - Baseline recreation
 - `ecoli/2. attention/final_attention_model.h5` - With SE attention
@@ -177,6 +184,7 @@ All models are hosted on **Zenodo** with DOI for citations.
 - `saureus/baseline/` - Baseline model
 - `saureus/ensemble/` - 5 models (seeds: 42, 123, 456, 789, 1024)
 
+</details>
 ---
 
 ## **Key Methods**
@@ -215,6 +223,9 @@ All models are hosted on **Zenodo** with DOI for citations.
 
 ### ❌ Failed Strategies (Important Negative Results)
 
+<details>
+<summary>Click to expand Failed Strategies</summary>
+  
 1. **Focal Loss**
    - **Result:** AUROC 0.710 (-14.43% from baseline 0.830)
    - **AUPRC:** 0.459 (-34.67% from baseline 0.703)
@@ -249,6 +260,7 @@ All models are hosted on **Zenodo** with DOI for citations.
 - 80/20 train/test split (seed=42)
 - Metrics: AUROC, AUPRC, Balanced Accuracy, Sensitivity, Specificity
 
+</details>
 ---
 
 ## **Results Summary**
