@@ -316,7 +316,7 @@ All models are hosted on **Zenodo** with DOI for citations.
 
 **Critical Finding:** 6× higher learning rate (3×10⁻⁴) essential for *S. aureus* due to strong PBP2a biomarkers.
 
-<details>
+</details>
 
 ---
 
