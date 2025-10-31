@@ -263,8 +263,6 @@ All models are hosted on **Zenodo** with DOI for citations.
 | **Our Ensemble** | **0.901** | 0.827 / **0.808** | 0.922 / **0.907** |
 | **Achievement** | **103.6%** ✅ | **100.9%** / 98.5% | **99.2%** / 97.5% |
 
-![AUROC Progression](media/image7.png)
-
 ### **Dataset Size Effect**
 
 | Dataset Size | Organism | DL Advantage | Best Traditional ML |
@@ -282,6 +280,9 @@ All models are hosted on **Zenodo** with DOI for citations.
 - ***S. aureus*:** 13 peaks in 4-8 kDa range (PBP2a fragments)
 
 ### **Detailed Performance Metrics**
+
+<details>
+<summary>Click to expand Detailed Performance Metrics for all species</summary>
 
 #### ***E. coli*-Ceftriaxone (Test Set)**
 
@@ -315,12 +316,15 @@ All models are hosted on **Zenodo** with DOI for citations.
 
 **Critical Finding:** 6× higher learning rate (3×10⁻⁴) essential for *S. aureus* due to strong PBP2a biomarkers.
 
+<details>
+
 ---
 
 ## **Visual Results**
 
 <details>
 <summary>Click to expand Visualizations for all species</summary>
+  
 ### **Enhancement Progression - E. coli**
 ![Enhancement Comparison](results\plots/ecoli/enhancements_comparison.png)
 *Figure 1: Impact of different enhancement strategies. Attention mechanism provides the strongest improvement (+4.99% AUROC), while focal loss catastrophically fails (-14.43% AUROC).*
@@ -359,6 +363,9 @@ All models are hosted on **Zenodo** with DOI for citations.
 </details>
 
 # Supplementary Materials
+
+<details>
+<summary>Click to expand Supplementary Materials</summary>
 
 ## Related Resources
 
@@ -403,6 +410,8 @@ All models are hosted on **Zenodo** with DOI for citations.
 - [ ] Web interface (Streamlit/Gradio)
 - [ ] Clinical workflow integration
 - [ ] Regulatory documentation
+
+</details>
 
 ---
 
