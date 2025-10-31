@@ -80,8 +80,9 @@ pip install -r requirements.txt
   # download-manually through the link I provided in lower sections.
 
 # 5. Download raw data (optional - or use our processed splits)
-# See data/raw/
-
+    # See data/raw/
+# Then start Jupyter
+jupyter notebook
 ```
 
 ---
@@ -254,13 +255,13 @@ All models are hosted on **Zenodo** with DOI for citations.
 
 ### **Performance vs. Paper**
 
-          | Model | E. coli | K. pneumoniae (CV/Test) | S. aureus (CV/Test) |
-          |-------|---------|-------------------------|---------------------|
-          | **Paper** | 0.87 | 0.82 | 0.93 |
-          | **Our Baseline** | 0.884 | 0.733 | 0.894 |
-          | **Our Optimized (CV)** | 0.890 | **0.827** / 0.809 | **0.922** / 0.906 |
-          | **Our Ensemble** | **0.901** | 0.827 / **0.808** | 0.922 / **0.907** |
-          | **Achievement** | **103.6%** ✅ | **100.9%** / 98.5% | **99.2%** / 97.5% |
+| Model | E. coli | K. pneumoniae (CV/Test) | S. aureus (CV/Test) |
+|-------|---------|-------------------------|---------------------|
+| **Paper** | 0.87 | 0.82 | 0.93 |
+| **Our Baseline** | 0.884 | 0.733 | 0.894 |
+| **Our Optimized (CV)** | 0.890 | **0.827** / 0.809 | **0.922** / 0.906 |
+| **Our Ensemble** | **0.901** | 0.827 / **0.808** | 0.922 / **0.907** |
+| **Achievement** | **103.6%** ✅ | **100.9%** / 98.5% | **99.2%** / 97.5% |
 
 ![AUROC Progression](media/image7.png)
 
@@ -314,6 +315,48 @@ All models are hosted on **Zenodo** with DOI for citations.
 
 **Critical Finding:** 6× higher learning rate (3×10⁻⁴) essential for *S. aureus* due to strong PBP2a biomarkers.
 
+---
+
+## **Visual Results**
+
+<details>
+<summary>Click to expand Visualizations for all species</summary>
+### **Enhancement Progression - E. coli**
+![Enhancement Comparison](results\plots/ecoli/enhancements_comparison.png)
+*Figure 1: Impact of different enhancement strategies. Attention mechanism provides the strongest improvement (+4.99% AUROC), while focal loss catastrophically fails (-14.43% AUROC).*
+
+### **Ensemble Performance**
+![Ensemble Results](results/plots/ecoli/ensemble_results.png)
+*Figure 2: Five-model ensemble achieves 0.9012 AUROC, exceeding 90% target. Individual models show consistent performance (0.874-0.895 range).*
+
+### **Feature Importance Analysis**
+
+#### **E. coli - GradCAM Heatmaps**
+![E. coli GradCAM](results/plots/ecoli/gradcam_feature_importance.png)
+*Figure 3: Resistant samples emphasize 2-10 kDa region (beta-lactamase fragments), while susceptible samples focus on 7-12 kDa (housekeeping proteins).*
+
+#### **K. pneumoniae - Threshold Optimization**
+![K. pneumoniae Threshold](results/plots/kpneumoniae/kpneu_threshold_optimization.png)
+*Figure 4: F2-optimal threshold (0.45) reduces false negatives by 51.2% while maintaining 66.2% specificity.*
+
+![K. pneumoniae Results](results/plots/kpneumoniae/kpneumoniae_improvement_results.png)
+*Figure 5: Species-specific optimization achieves 0.809 AUROC (98.5% of paper target) despite severe 5.37:1 class imbalance.*
+
+#### **S. aureus - Biological Validation**
+![S. aureus GradCAM](results/plots/saureus/gradcam_heatmaps.png)
+*Figure 6: GradCAM identifies 13 peaks in PBP2a range (4-8 kDa), validating genuine MRSA biomarker learning.*
+
+![S. aureus Performance](results/plots/saureus/performance_comparison.png)
+*Figure 7: Optimized model achieves 0.9071 AUROC (97.5% of target), with species-specific LR (3×10⁻⁴) critical for convergence.*
+
+![S. aureus Threshold](results/plots/saureus/threshold_analysis.png)
+*Figure 8: Clinical F2-optimal threshold (0.28) achieves 86.9% sensitivity, estimated $1.1M savings per 1,000 MRSA infections.*
+
+### **Deep Learning vs Traditional ML**
+![ML Comparison](results/plots/kpneumoniae/dl_vs_traditional_ml.png)  |  ![ML Comparison](results/plots/saureus/performance_comparison.png)
+*Figure 9: Deep learning advantage scales with dataset size - +6.58% (E. coli, 3,968 samples), +5.58% (S. aureus, 3,032 samples), +0.16% AUROC (K. pneumoniae, 2,288 samples).*
+
+</details>
 
 # Supplementary Materials
 
@@ -406,26 +449,6 @@ doi: 10.3389/fmicb.2024.1361795
 **⭐ Star this repository if you find it useful!**
 
 **📢 Share with colleagues working on antimicrobial resistance or MALDI-TOF MS!**
-
-## **Quick Start Commands**
-```bash
-# Clone repository
-git clone https://github.com/Muhammad-Lukman/MSDeepAMR_Recreation_Enhancement_project.git
-cd MSDeepAMR_Recreation_Enhancement_project
-
-# Setup environment
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-
-# Pull preprocessed data
-git lfs install && git lfs pull
-
-# Download models from Zenodo (see link in above Model Files section)
-# Then start Jupyter
-jupyter notebook
-```
-
 ---
 
 *Last Updated: October 2025*  
