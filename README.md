@@ -254,13 +254,13 @@ All models are hosted on **Zenodo** with DOI for citations.
 
 ### **Performance vs. Paper**
 
-| Model | E. coli | K. pneumoniae (CV/Test) | S. aureus (CV/Test) |
-|-------|---------|-------------------------|---------------------|
-| **Paper** | 0.87 | 0.82 | 0.93 |
-| **Our Baseline** | 0.884 | 0.733 | 0.894 |
-| **Our Optimized (CV)** | 0.890 | **0.827** / 0.809 | **0.922** / 0.906 |
-| **Our Ensemble** | **0.901** | 0.827 / **0.808** | 0.922 / **0.907** |
-| **Achievement** | **103.6%** ✅ | **100.9%** / 98.5% | **99.2%** / 97.5% |
+          | Model | E. coli | K. pneumoniae (CV/Test) | S. aureus (CV/Test) |
+          |-------|---------|-------------------------|---------------------|
+          | **Paper** | 0.87 | 0.82 | 0.93 |
+          | **Our Baseline** | 0.884 | 0.733 | 0.894 |
+          | **Our Optimized (CV)** | 0.890 | **0.827** / 0.809 | **0.922** / 0.906 |
+          | **Our Ensemble** | **0.901** | 0.827 / **0.808** | 0.922 / **0.907** |
+          | **Achievement** | **103.6%** ✅ | **100.9%** / 98.5% | **99.2%** / 97.5% |
 
 ![AUROC Progression](media/image7.png)
 
