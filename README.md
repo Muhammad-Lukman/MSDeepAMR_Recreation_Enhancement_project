@@ -3,13 +3,14 @@
 [![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
 [![TensorFlow 2.19](https://img.shields.io/badge/TensorFlow-2.19-orange.svg)](https://www.tensorflow.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17488614.svg)](https://doi.org/10.5281/zenodo.17488614)
 [![Status](https://img.shields.io/badge/Status-Research-yellow.svg)]()
 
 > **Comprehensive recreation and systematic enhancement of MSDeepAMR for predicting antibiotic resistance from MALDI-TOF mass spectrometry data.** - This repository contains a complete reproduction and enhancement of MSDeepAMR (López-Cortés et al., 2024), achieving **90.12% AUROC** for *E. coli*-Ceftriaxone resistance prediction - exceeding the original paper by 3.6%.
 
 📄 **Manuscript:** [Link to Original paper](https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2024.1361795/full#B57)  
 🗂️ **Dataset:** [DRIAMS Database](https://doi.org/10.5061/dryad.bzkh1899q)  
-🎯 **Models:** [Download from Zenodo](https://zenodo.org/record/XXXXXXX) (~6 GB)
+🎯 **Models:** [Download from Zenodo](https://doi.org/10.5281/zenodo.17488614) (~6-7 GB)
 
 ---
 
@@ -42,13 +43,12 @@
 
 ---
 
-## **Installation**
-
 ### **Requirements**
 - Python 3.8+
 - GPU recommended (NVIDIA with CUDA support)
 - 16GB RAM
 - ~15 GB disk space (data + models)
+- **Git LFS** (for preprocessed data)
 
 ### **Quick Start**
 ```bash
@@ -64,13 +64,11 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
 # 4. Download models from Zenodo (~6 GB)
-bash scripts/download_models.sh
+  # download-manually through the link I provided in lower sections.
 
 # 5. Download raw data (optional - or use our processed splits)
 # See data/raw/
 
-# 6. Verify installation
-python scripts/verify_setup.py
 ```
 
 ---
@@ -136,15 +134,14 @@ MSDeepAMR_Recreation_Enhancement_project/
 
 All models are hosted on **Zenodo** with DOI for citations.
 
-### **Download All Models (~6-7 GB)**
+### **Download All Models**
+- [x] **Models:** [Download from Zenodo](https://doi.org/10.5281/zenodo.17488614) (~6-7 GB)
 ```bash
-# Automated download script
-bash scripts/download_models.sh
+# Manual download (automated script not yet available)
+# Visit: https://doi.org/10.5281/zenodo.17488614
+# Download all files and organize them to models/ directory maintaining the structure below 
 ```
-
-### **Or Download Manually**
-
-**Zenodo link:** https://zenodo.org/record/XXXXXXX
+**Note:** Models are being uploaded. DOI will be finalized once upload completes.
 
 **Model Organization:**
 
@@ -165,8 +162,6 @@ bash scripts/download_models.sh
 #### **S. aureus Models**
 - `saureus/baseline/` - Baseline model
 - `saureus/ensemble/` - 5 models (seeds: 42, 123, 456, 789, 1024)
-
-**See [models/DOWNLOAD_MODELS.md](models/DOWNLOAD_MODELS.md) for details.**
 
 ---
 
@@ -206,17 +201,34 @@ bash scripts/download_models.sh
 
 ### ❌ Failed Strategies (Important Negative Results)
 
-1. **Focal Loss + Class Weights**
-   - **Result**: -14.43% AUROC (catastrophic failure)
-   - **Cause**: Double penalty on majority class → model collapse
-   - **Lesson**: Use **either** focal loss **or** class weights, not both
+1. **Focal Loss**
+   - **Result:** AUROC 0.710 (-14.43% from baseline 0.830)
+   - **AUPRC:** 0.459 (-34.67% from baseline 0.703)
+   - **Cause:** Down-weighting "easy" examples removed critical signal
+   - **Balanced Accuracy:** Collapsed to 0.500 (random guessing)
+   - **Lesson:** Focal loss incompatible with this architecture/data combination
 
-2. **SMOTE (Synthetic Minority Oversampling)**
-   - **Result**: -14.96% AUROC for K. pneumoniae
-   - **Cause**: Synthetic spectra violate biological manifold
-   - **Lesson**: Linear interpolation creates impossible protein expression states
-   - **Alternative**: Ensemble methods, peak intensity augmentation
-  
+2. **Focal Loss + Attention (Combined)**
+   - **Result:** AUROC 0.866 (better than focal alone, worse than attention alone)
+   - **Analysis:** Focal loss partially undermines attention benefits
+   - **Conclusion:** Use attention alone, not combined
+
+3. **Class Weights**
+   - **Result:** AUROC 0.682 (-14.8% from baseline)
+   - **AUPRC:** 0.417 (-28.5% from baseline)
+   - **Cause:** Over-emphasis on minority class → excessive false positives
+   - **Lesson:** High-dimensional MS data already has separable classes; weighting over-corrects
+
+4. **SMOTE (*K. pneumoniae*)**
+   - **Result:** AUROC 0.687 (-6.2% from baseline 0.733)
+   - **Ensemble AUROC:** 0.687 (7 models, no improvement)
+   - **Cause:** Synthetic spectra likely violate biological manifold
+   - **Technical:** Linear interpolation in 6,000-D space creates "impossible" protein expression states
+   - **Lesson:** For MS data, use ensemble methods or threshold optimization instead
+
+5. **Data Augmentation**
+   - **Result:** Failed (works for Conv2D images, not 1D spectra)
+   - **Reason:** MS peaks have physical constraints; augmentation violates these
 
 ### **Evaluation Protocol**
 - 10-fold stratified cross-validation
@@ -254,6 +266,42 @@ bash scripts/download_models.sh
 - **E. coli:** Resistant strains show peaks at 2-10 kDa (beta-lactamase fragments)
 - **K. pneumoniae:** 9 peaks in 2.1-2.4 kDa range (ESBL fragments)
 - **S. aureus:** 13 peaks in 4-8 kDa range (PBP2a fragments)
+
+---
+
+### **Detailed Performance Metrics**
+
+#### **E. coli-Ceftriaxone (Test Set)**
+
+| Model | AUROC | AUPRC | Bal. Acc | Sensitivity | Specificity | Training Time |
+|-------|-------|-------|----------|-------------|-------------|---------------|
+| Baseline | 0.884 | 0.786 | 0.764 | 53.9% | 99.0% | ~2h (10-fold CV) |
+| +Attention | 0.879 | 0.802 | 0.805 | 65.4% | 95.5% | ~2.5h |
+| +Optimization | 0.896 | 0.821 | 0.833 | 68.2% | 94.8% | ~3h |
+| **+Ensemble (5 models)** | **0.901** | **0.823** | **0.821** | **67.3%** | **95.0%** | **~2.5h** |
+
+#### **K. pneumoniae-Ceftriaxone (Test Set)**
+
+| Model | AUROC | AUPRC | Bal. Acc | Sensitivity | Specificity | Key Hyperparameter |
+|-------|-------|-------|----------|-------------|-------------|--------------------|
+| Baseline (Part 5) | 0.733 | 0.383 | 0.664 | 54.4% | 88.6% | Dropout 0.65 |
+| Attention (E. coli params) | 0.802 | 0.574 | 0.715 | 54.4% | 88.6% | Dropout 0.45 |
+| **Species-Optimized (dropout 0.35)** | **0.809** | **0.609** | **0.734** | **66.7%** | **86.9%** | **Dropout 0.35** ✓ |
+| Ensemble (5 models) | 0.808 | 0.620 | 0.734 | 66.7% | 86.9% | Dropout 0.35 |
+| **10-fold CV Mean** | **0.827** | **0.685** | - | - | - | **Exceeded target!** |
+
+**Critical Finding:** Dropout 0.35 vs. 0.45 makes 1.2% AUROC difference for K. pneumoniae.
+
+#### **S. aureus-Oxacillin (Test Set)**
+
+| Model | AUROC | AUPRC | Bal. Acc | Sensitivity | Specificity | Key Hyperparameter |
+|-------|-------|-------|----------|-------------|-------------|--------------------|
+| Baseline (Part 5) | 0.875 | 0.744 | 0.812 | 80.7% | 84.3% | LR 1×10⁻⁴ |
+| **Species-Optimized** | **0.906** | **0.803** | **0.822** | **82.8%** | **86.2%** | **LR 3×10⁻⁴** ✓ |
+| Ensemble (5 models) | 0.907 | 0.806 | 0.822 | 82.8% | 86.2% | LR 3×10⁻⁴ |
+| **10-fold CV Mean** | **0.922** | **0.826** | **0.836** | - | - | **99.2% of target** |
+
+**Critical Finding:** 6× higher learning rate (3×10⁻⁴) essential for S. aureus due to strong PBP2a biomarkers.
 
 ---
 
@@ -355,10 +403,28 @@ doi: 10.3389/fmicb.2024.1361795
 **📢 Share with colleagues working on antimicrobial resistance or MALDI-TOF MS!**
 
 ---
-### **1. Clone Repository**
-```bash
-git clone https://github.com/Muhammad-Lukman/MSDeepAMR_Recreation_Enhancement_project.git
 
+## **Quick Start Commands**
+```bash
+# Clone repository
+git clone https://github.com/Muhammad-Lukman/MSDeepAMR_Recreation_Enhancement_project.git
+cd MSDeepAMR_Recreation_Enhancement_project
+
+# Setup environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+
+# Pull preprocessed data
+git lfs install && git lfs pull
+
+# Download models from Zenodo (see link in above Model Files section)
+# Then start Jupyter
+jupyter notebook
 ```
-*Last Updated: October 31, 2025*  
-*Version: 1.0.0*
+
+---
+
+*Last Updated: October 2025*  
+*Version: 1.0.0*  
+*Status: Models uploading to Zenodo - DOI finalized upon completion*
