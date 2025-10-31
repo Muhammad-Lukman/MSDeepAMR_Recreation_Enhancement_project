@@ -1,0 +1,66 @@
+
+MSDeepAMR DATA PREPROCESSING SUMMARY
+======================================================================
+
+PAPER TARGET METRICS (Table 2):
+--------------------------------
+1. E. coli-Ceftriaxone:     AUROC=0.87, AUPRC=0.79, Bal.Acc=0.80
+2. K. pneumoniae-Ceftriaxone: AUROC=0.82, AUPRC=0.68, Bal.Acc=0.76
+3. S. aureus-Oxacillin:     AUROC=0.93, AUPRC=0.85, Bal.Acc=0.87
+
+OUR PREPROCESSED DATA:
+----------------------
+
+E. coli-Ceftriaxone:
+  Total samples: 4961
+  Training: 3968 (80.0%)
+  Test: 993 (20.0%)
+  Features: 6000
+  Train distribution: Susceptible=3099, Resistant=869
+  Test distribution: Susceptible=776, Resistant=217
+  Imbalance ratio: 3.57:1
+
+K. pneumoniae-Ceftriaxone:
+  Total samples: 2860
+  Training: 2288 (80.0%)
+  Test: 572 (20.0%)
+  Features: 6000
+  Train distribution: Susceptible=1929, Resistant=359
+  Test distribution: Susceptible=482, Resistant=90
+  Imbalance ratio: 5.37:1
+
+S. aureus-Oxacillin:
+  Total samples: 3790
+  Training: 3032 (80.0%)
+  Test: 758 (20.0%)
+  Features: 6000
+  Train distribution: Susceptible=2451, Resistant=581
+  Test distribution: Susceptible=613, Resistant=145
+  Imbalance ratio: 4.22:1
+
+PREPROCESSING SPECIFICATIONS:
+------------------------------
+✓ Random seed: 42
+✓ Train-test split: 80/20 (stratified)
+✓ Cross-validation: 10-fold (stratified)
+✓ Feature count: 6,000 m/z bins
+✓ Bin size: 3 Da
+✓ m/z range: 2000-19997 Da
+✓ Data type: float32
+✓ Missing values: Removed from labels only
+
+READY FOR MODEL TRAINING:
+-------------------------
+✓ All data shapes verified
+✓ Stratification confirmed
+✓ CV folds prepared
+✓ Data saved to disk
+✓ Both normalized and raw versions available
+
+NEXT STEPS:
+-----------
+→ Part 3: Implement MSDeepAMR architecture
+→ Part 4: Train baseline models with 10-fold CV
+→ Part 5: Compare results with paper benchmarks
+
+======================================================================
