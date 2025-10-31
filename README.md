@@ -125,6 +125,7 @@ Execute notebooks in the following order:
 18. `Part 8b K. pneumoniae specific Hyperparameter Optimization (wrong dropout of 0.45)` - Actually, **not Failed** but accidently used dropout 0.45 instead of 0.35 (seePart 8b) due to sleepy head 😅
 
 </details>
+
 ---
 
 ## **Repository Structure**
@@ -185,6 +186,7 @@ All models are hosted on **Zenodo** with DOI for citations.
 - `saureus/ensemble/` - 5 models (seeds: 42, 123, 456, 789, 1024)
 
 </details>
+
 ---
 
 ## **Key Methods**
@@ -261,6 +263,7 @@ All models are hosted on **Zenodo** with DOI for citations.
 - Metrics: AUROC, AUPRC, Balanced Accuracy, Sensitivity, Specificity
 
 </details>
+
 ---
 
 ## **Results Summary**
