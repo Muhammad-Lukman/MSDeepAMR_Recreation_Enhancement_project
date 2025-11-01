@@ -73,14 +73,17 @@ cd MSDeepAMR_Recreation_Enhancement_project
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 
-# 3. Install dependencies
+# 3. Download preprocessed data (via Git LFS)
+git lfs install
+git lfs pull
+
+# 4. Download models from Zenodo
+# Visit: https://doi.org/10.5281/zenodo.17488614
+# Extract to models/ directory maintaining folder structure
+
+# 5. Install dependencies
 pip install -r requirements.txt
 
-# 4. Download models from Zenodo (~6 GB)
-  # download-manually through the link I provided in lower sections.
-
-# 5. Download raw data (optional - or use our processed splits)
-    # See data/raw/
 # Then start Jupyter
 jupyter notebook
 ```
@@ -151,7 +154,7 @@ MSDeepAMR_Recreation_Enhancement_project/
 
 ## **Model Files**
 
-All models are hosted on **Zenodo** with DOI for citations.
+All trained models are hosted on **Zenodo** for permanent archival and fast downloads.
 
 ### **Download All Models**
 - [x] **Models:** [Download from Zenodo](https://doi.org/10.5281/zenodo.17488614) (~6-7 GB)
