@@ -341,7 +341,7 @@ All models are hosted on **Zenodo** with DOI for citations.
 <summary>Click to expand Visualizations for all species</summary>
   
 ### **Enhancement Progression - E. coli**
-![Enhancement Comparison](results\plots/ecoli/enhancements_comparison.png)
+![Enhancement Comparison](results/plots/ecoli/enhancements_comparison.png)
 *Figure 1: Impact of different enhancement strategies. Attention mechanism provides the strongest improvement (+4.99% AUROC), while focal loss catastrophically fails (-14.43% AUROC).*
 
 ### **Ensemble Performance**
@@ -372,7 +372,7 @@ All models are hosted on **Zenodo** with DOI for citations.
 *Figure 8: Clinical F2-optimal threshold (0.28) achieves 86.9% sensitivity, estimated $1.1M savings per 1,000 MRSA infections.*
 
 ### **Deep Learning vs Traditional ML**
-![ML Comparison](results/plots/kpneumoniae/dl_vs_traditional_ml.png)  |  ![ML Comparison](results/plots/saureus/performance_comparison.png)
+![ML Comparison](results/plots/kpneumoniae/dl_vs_traditional_ml.png) ![ML Comparison](results/plots/saureus/performance_comparison.png)
 *Figure 9: Deep learning advantage scales with dataset size - +6.58% (E. coli, 3,968 samples), +5.58% (S. aureus, 3,032 samples), +0.16% AUROC (K. pneumoniae, 2,288 samples).*
 
 </details>
