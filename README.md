@@ -1,4 +1,4 @@
-# MSDeepAMR Recreation: Deep Learning for Antimicrobial Resistance Prediction
+# Recreation and Enhancement of MSDeepAMR: A Deep Learning Approach for Antimicrobial Resistance Prediction from MALDI-TOF Mass Spectrometry Data
 
 [![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
 [![TensorFlow 2.19](https://img.shields.io/badge/TensorFlow-2.19-orange.svg)](https://www.tensorflow.org/)
