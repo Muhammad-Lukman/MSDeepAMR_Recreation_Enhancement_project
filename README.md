@@ -163,7 +163,6 @@ All trained models are hosted on **Zenodo** for permanent archival and fast down
 # Visit: https://doi.org/10.5281/zenodo.17488614
 # Download all files and organize them to models/ directory maintaining the structure below 
 ```
-**Note:** Models are being uploaded. DOI will be finalized once upload completes.
 
 **Model Organization:**
 
@@ -437,7 +436,7 @@ All trained models are hosted on **Zenodo** for permanent archival and fast down
 
 If you use this code or models, please cite:
 ```bibtex
-@heart{muhammadlukman2025msdeepamr,
+@misc{muhammadlukman2025msdeepamr,
   title={Recreation and Enhancement of MSDeepAMR: A Deep Learning Approach for Antimicrobial Resistance Prediction from MALDI-TOF Mass Spectrometry Data},
   author={Muhammad Lukman},
   year={2025},
